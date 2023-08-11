@@ -14,7 +14,8 @@ module.exports = {
         },
         egray: {
           100: "#F1F3F4",
-          200: "#EAEAEA"
+          200: "#EAEAEA",
+          500: "#D3D3D3"
         },
         eblue: {
           50: "#D6E4EC",
