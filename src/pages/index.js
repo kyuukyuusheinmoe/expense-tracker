@@ -1,6 +1,7 @@
 import {Button} from 'primereact/button'
 import { months, currency } from '../constants/common'
 import TransactionCard from '../components/TransactionCard'
+import { MainLayout } from '../containers/Layout'
 
 const user_expense = {
   current: {
@@ -64,5 +65,11 @@ export default function Home() {
         </div>
       </div>
     </>
+  )
+}
+
+Home.getLayout = function getLayout(page) {
+  return (
+      <MainLayout>{page}</MainLayout>
   )
 }
