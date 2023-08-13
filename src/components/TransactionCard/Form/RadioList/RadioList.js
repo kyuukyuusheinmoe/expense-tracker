@@ -8,7 +8,6 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid'
 
 function RadioList({value, onChange, items}) {
   const handleOnClick = (item) => {
-    console.log ('xxx handleOnClick', item)
     onChange(item)
   }
   return (
