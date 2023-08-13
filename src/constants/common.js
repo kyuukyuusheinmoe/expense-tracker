@@ -24,3 +24,11 @@ export const CategoryIconColorMapper = ( payment)=> {
         case 'Pay': return {icon: "pi pi-mobile", color: "!bg-epink-50 !border-epink-50"}
     }
 }
+
+export const NecessityColorMapper = (payment) => {
+    switch(payment) {
+        case 'low': return {icon: 'pi pi-money-bill', color: '!bg-error !border-error !text-black'}
+        case 'moderate': return {icon: 'pi pi-credit-card', color: '!bg-warning !border-warning !text-black'}
+        case 'high': return {icon: "pi pi-mobile", color: "!bg-success !border-success !text-black"}
+    }
+}

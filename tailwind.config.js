@@ -36,10 +36,12 @@ module.exports = {
         success: {
           DEFAULT: "#5BA142"
         },
+        warning: {
+          DEFAULT:"#FFC107",
+        },
         error: {
           DEFAULT: "#C52121"
         },
-
     },
   },
   plugins: [],
