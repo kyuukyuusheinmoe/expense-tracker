@@ -1,4 +1,5 @@
 import CalendarComponent from "./Calendar";
 import InputComponent from "./Input";
+import RadioList from "./RadioList";
 
-export {InputComponent, CalendarComponent}
+export {InputComponent, CalendarComponent, RadioList}
