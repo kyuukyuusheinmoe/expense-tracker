@@ -1,6 +1,7 @@
-import '../styles/globals.scss'
 import 'primeicons/primeicons.css';
-import { MainLayout } from '../containers/Layout';
+import "primereact/resources/primereact.min.css";
+import '../styles/globals.scss'
+import "../styles/theme.css";   
 
 function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page)
