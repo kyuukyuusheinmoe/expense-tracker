@@ -2,33 +2,17 @@ export const months = ["January","February","March","April","May","June","July",
 
 export const currency = "MMK"
 
+export const TRXN_DEBIT = 'Debit';
+export const TRXN_CREDIT = 'Credit';
+export const PAYMENT_CASH = 'Cash';
+export const PAYMENT_BANK = 'Bank';
+export const PAYMENT_PAY = 'Pay';
+export const CATEGORY_BILLS = 'Bills'
+export const NECESSITY_LOW = 'Low'
+export const NECESSITY_MODERATE = 'Moderate'
+export const NECESSITY_HIGH = 'High'
+
 export const transactionColorMapper = {
     'debit': '!bg-egray-100',
     'credit': '!bg-eblue-50'
-}
-
-export const PaymentIconColorMapper = ( payment)=> {
-    switch(payment) {
-        case 'Cash': return {icon: 'pi pi-money-bill', color: '!bg-egold-50 !border-egold-50 !text-black'}
-        case 'Bank': return {icon: 'pi pi-credit-card', color: '!bg-egray-100 !border-egray-100 !text-black'}
-        case 'Pay': return {icon: "pi pi-mobile", color: "!bg-epink-50 !border-epink-50 !text-black"}
-        default: return {icon: 'pi pi-money-bill', color: '!bg-egold-50 !border-egold-50 !text-black'}
-
-    }
-}
-
-export const CategoryIconColorMapper = ( payment)=> {
-    switch(payment) {
-        case 'Bills': return {icon: 'pi pi-money-bill', color: '!bg-blue-500 !border-blue-500 !text-black'}
-        case 'Bank': return {icon: 'pi pi-credit-card', color: '!bg-egray-100 !border-egray-100 !text-black'}
-        case 'Pay': return {icon: "pi pi-mobile", color: "!bg-epink-50 !border-epink-50"}
-    }
-}
-
-export const NecessityColorMapper = (payment) => {
-    switch(payment) {
-        case 'low': return {icon: 'pi pi-money-bill', color: '!bg-error !border-error !text-black'}
-        case 'moderate': return {icon: 'pi pi-credit-card', color: '!bg-warning !border-warning !text-black'}
-        case 'high': return {icon: "pi pi-mobile", color: "!bg-success !border-success !text-black"}
-    }
 }

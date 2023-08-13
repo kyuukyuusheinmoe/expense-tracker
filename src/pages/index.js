@@ -16,17 +16,17 @@ const user_expense = {
     totalExpense: 20000,
     trxns: [{
       amount: 100000,
-      type: 'debit',
+      type: 'Debit',
       category: 'Bills',
       payment: "Cash"
     },{
       amount: 100000,
-      type: 'credit',
+      type: 'Credit',
       category: 'Bills',
       payment: "Bank"
     },{
       amount: 100000,
-      type: 'credit',
+      type: 'Credit',
       category: 'Bills',
       payment: "Bank"
     }],
