@@ -38,6 +38,7 @@ export default function Home() {
   const currentDate = new Date()
   const currentMonth = months[currentDate.getMonth()]
   const {current, init, today} = user_expense;
+
   return (
     <>
       <div>
