@@ -6,6 +6,7 @@ import { Controller, useForm} from 'react-hook-form'
 import axios from 'axios'
 import {Dialog} from 'primereact/dialog'
 import { useRouter } from 'next/router'
+import LayoutWithHeader from '../../containers/Layout/LayoutWithHeader'
 
 function TransactionCreatePage() {
   const {getValues, control, handleSubmit, reset} = useForm({defaultValues: {}})
@@ -28,7 +29,7 @@ function TransactionCreatePage() {
     }
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className='overflow-scroll'>
         <div className='p-2 grid gap-5'>
             <Controller
               name="title"
@@ -78,7 +79,7 @@ function TransactionCreatePage() {
               )}/>
         </div>
         <div className='flex flex-row-reverse p-4'>
-          <Button label='Save' className='!py-2 absolute bottom-8 '/>
+          <Button label='Save' className='!py-2 fixed bottom-2 '/>
         </div>
       </form>
 
@@ -103,3 +104,5 @@ function TransactionCreatePage() {
 }
 
 export default TransactionCreatePage
+
+TransactionCreatePage.getLayout =  function getLayout  (page) {return <LayoutWithHeader title="Create Transaction">{page}</LayoutWithHeader>} ;
