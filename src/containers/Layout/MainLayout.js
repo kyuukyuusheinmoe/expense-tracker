@@ -3,7 +3,7 @@ import BottomNavBar from './BottomNavBar'
 
 function MainLayout({children}) {
   return (
-    <div className='max-w-[1024px] m-auto p-4'>
+    <div className='max-w-[1024px] m-auto'>
       {children}
       <BottomNavBar/>
     </div>
