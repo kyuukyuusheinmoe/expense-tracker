@@ -40,7 +40,7 @@ function TransactionCreatePage() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className='overflow-scroll'>
-        <div className='p-2 grid gap-5'>
+        <div className='p-4 grid gap-5'>
             <Controller
               name="title"
               control={control}
@@ -70,19 +70,14 @@ function TransactionCreatePage() {
               control={control}
               placeholder="Select Type"
               render={({ field, fieldState }) => ( 
-                <div className='flex gap-10 px-6'>
-                  <p className='text-md font-bold'> Type </p>
-                  <div className='flex flex-nowrap overflow-x-scroll relative'>
-                    <DropDownComponent options={[{name: "In", value: 'in'}, {name: "Out", value: "out"}]} {...field} />
-                  </div>
-                </div>
+                    <DropDownComponent options={[{name: "In", value: 'in'}, {name: "Out", value: "out"}]} label="Type" {...field} />
                )}/>
             <Controller
               name="payment"
               control={control}
               render={({ field, fieldState }) => ( 
                 <div>
-                  <p className='text-md font-bold'> {`${typeCheck=== "in" ? "Get" : "Pay"} with`} </p>
+                  <p className='text-md text-gray-400 mb-2'> {`${typeCheck=== "in" ? "Get" : "Pay"} with`} </p>
                   <div className='flex flex-nowrap overflow-x-scroll relative'>
                     <RadioList items={userPaymentTypes} {...field} />
                   </div>
@@ -93,7 +88,7 @@ function TransactionCreatePage() {
               control={control}
               render={({ field, fieldState }) => ( 
                 <div className={clsx(typeCheck=== "in" && "hidden")}>
-                  <p className='text-md font-bold'> Necessity </p>
+                  <p className='text-md  text-gray-400 mb-2'> Necessity </p>
                   <div className='flex flex-nowrap overflow-x-scroll relative'>
                     <RadioList items={necessityTypes} {...field} />
                   </div>

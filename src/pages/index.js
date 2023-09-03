@@ -40,8 +40,7 @@ export default function Home() {
   const {current, init, today} = user_expense;
 
   return (
-    <>
-      <div>
+      <div className="p-4">
         <div className='flex flex-row-reverse'>
           <Button label={currentMonth} icon="pi pi-calendar pr-1" className='!bg-main !text-white !p-2 !rounded-full'/>
         </div>
@@ -65,7 +64,6 @@ export default function Home() {
           }
         </div>
       </div>
-    </>
   )
 }
 
