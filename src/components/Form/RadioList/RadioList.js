@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'primereact/button'
-import { IconColorMapper } from '../../../../utils/common'
+import { IconColorMapper } from '../../../utils/common'
 import clsx from 'clsx'
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
 

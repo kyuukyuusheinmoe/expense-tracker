@@ -7,7 +7,7 @@ import clsx from 'clsx';
 function CalendarComponent({label, ...rest}) {
     const [date, setDate] = useState(null)
   return (
-    <div className={clsx(styles['calendar-component'],"flex items-center gap-6 bg-egray-500 rounded-xl p-4")}>
+    <div className={clsx(styles['calendar-component'],"flex items-center justify-between rounded-xl px-4")}>
       <label className='text-md font-bold' >{label}</label>
       <Calendar value={date} onChange={(e) => setDate(e.value)} {...rest} />
     </div>

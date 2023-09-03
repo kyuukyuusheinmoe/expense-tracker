@@ -1,6 +1,6 @@
 import {Button} from 'primereact/button'
 import { months, currency } from '../constants/common'
-import TransactionCard from '../components/TransactionCard'
+import { TransactionCard } from '../components/Cards'
 import { MainLayout } from '../containers/Layout'
 
 const user_expense = {
