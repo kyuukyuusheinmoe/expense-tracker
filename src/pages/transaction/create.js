@@ -1,18 +1,28 @@
-import React, { useState } from 'react'
-import { InputComponent, CalendarComponent, RadioList } from '../../components/TransactionCard/Form'
+import React, { useState, useEffect } from 'react'
+import { InputComponent, CalendarComponent, RadioList, DropDownComponent } from '../../components/Form'
 import { userPaymentTypes, necessityTypes } from '../../constants/ComponentData'
 import { Button } from 'primereact/button'
-import { Controller, useForm} from 'react-hook-form'
+import { Controller, useForm, useWatch} from 'react-hook-form'
 import axios from 'axios'
 import {Dialog} from 'primereact/dialog'
 import { useRouter } from 'next/router'
 import LayoutWithHeader from '../../containers/Layout/LayoutWithHeader'
+import clsx from 'clsx'
 
 function TransactionCreatePage() {
-  const {getValues, control, handleSubmit, reset} = useForm({defaultValues: {}})
+  const {getValues, control, handleSubmit, reset, register, unregister} = useForm({defaultValues: {}})
   const [confirmVisible, setConfirmVisible] = useState(false)
   const [apiData, setApiData] = useState({})
   const router = useRouter()
+  const typeCheck = useWatch({control, name: "type"})
+
+  useEffect(() => {
+    if (typeCheck === "in") {
+      unregister("necessity");
+    } else {
+      register("necessity");
+    }
+  }, [register, unregister, typeCheck]);
 
   const onSubmit = () => {
     axios.post('http://localhost:3005/transactions', {
@@ -56,26 +66,38 @@ function TransactionCreatePage() {
                       <InputComponent label="Description" {...field}/>
               )}/>
             <Controller
+              name="type"
+              control={control}
+              placeholder="Select Type"
+              render={({ field, fieldState }) => ( 
+                <div className='flex gap-10 px-6'>
+                  <p className='text-md font-bold'> Type </p>
+                  <div className='flex flex-nowrap overflow-x-scroll relative'>
+                    <DropDownComponent options={[{name: "In", value: 'in'}, {name: "Out", value: "out"}]} {...field} />
+                  </div>
+                </div>
+               )}/>
+            <Controller
               name="payment"
               control={control}
               render={({ field, fieldState }) => ( 
-                <>
-                  <p className='text-md font-bold'> Pay with </p>
+                <div>
+                  <p className='text-md font-bold'> {`${typeCheck=== "in" ? "Get" : "Pay"} with`} </p>
                   <div className='flex flex-nowrap overflow-x-scroll relative'>
                     <RadioList items={userPaymentTypes} {...field} />
                   </div>
-                </>
+                </div>
                )}/>
             <Controller
               name="necessity"
               control={control}
               render={({ field, fieldState }) => ( 
-                <>
+                <div className={clsx(typeCheck=== "in" && "hidden")}>
                   <p className='text-md font-bold'> Necessity </p>
                   <div className='flex flex-nowrap overflow-x-scroll relative'>
                     <RadioList items={necessityTypes} {...field} />
                   </div>
-                </>
+                </div>
               )}/>
         </div>
         <div className='flex flex-row-reverse p-4'>
@@ -93,10 +115,10 @@ function TransactionCreatePage() {
                       <Button icon="pi pi-home" label='Go Home' type="button" onClick={()=> router.push('/')}/>
                     </div>
                   </div>
-                  : <>
+                  : <div className='flex flex-col gap-4'>
                     <p> Something went wrong.</p>
-                    <Button icon="pi pi-plus" label='Create New' type="button"  onClick={()=> reset()}/>
-                    </>
+                      <Button icon="pi pi-refresh" label='Try Again' type="button"  onClick={()=> setConfirmVisible(false)}/>
+                    </div>
                 }
       </Dialog>         
     </>
