@@ -2,6 +2,8 @@ import {Button} from 'primereact/button'
 import { months, currency } from '../constants/common'
 import { TransactionCard } from '../components/Cards'
 import { MainLayout } from '../containers/Layout'
+import BottomNavBar from '../containers/Layout/BottomNavBar'
+import Router from 'next/router'
 
 const user_expense = {
   current: {
@@ -69,6 +71,9 @@ export default function Home() {
 
 Home.getLayout = function getLayout(page) {
   return (
-      <MainLayout>{page}</MainLayout>
+      <MainLayout>
+        {page}
+        <BottomNavBar onClickPlus={()=> Router.push('/transaction/create')}/>
+      </MainLayout>
   )
 }

@@ -1,6 +1,8 @@
 import React from 'react'
 import { AccountCard } from '../../components/Cards'
 import LayoutWithHeader from '../../containers/Layout/LayoutWithHeader';
+import BottomNavBar from '../../containers/Layout/BottomNavBar';
+import Router from 'next/router';
 
 const accounts = [{
     type: "Cash",
@@ -21,12 +23,13 @@ const accounts = [{
 }]
 
 function AccountListPage() {
+
   return (
-    <div className='grid gap-2 p-4'>
+     <div className='grid gap-2 p-4'>
       {
         accounts.map ((account, index) => <AccountCard key={index} {...account} />)
       }
-    </div>
+      </div>
   )
 }
 
@@ -35,5 +38,6 @@ export default AccountListPage
 AccountListPage.getLayout = function getLayout(page) {
   return <LayoutWithHeader title="Accounts">
     {page}
+    <BottomNavBar onClickPlus={()=> Router.push('/account/create')}/>
   </LayoutWithHeader>
 }
