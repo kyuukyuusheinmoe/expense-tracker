@@ -1,4 +1,4 @@
-import { necessityTypes } from "./ComponentData"
+import { userPaymentTypes, necessityTypes } from "./ComponentData" 
 
 export const CreateTransactionForm = {
     fields: [
@@ -46,7 +46,8 @@ export const CreateTransactionForm = {
             displayValue: "value",
             dataSource: {
                 type: "API",
-                url: "http://localhost:4000/payments"
+                url: "http://localhost:4000/payments",
+                items: userPaymentTypes
             }
         },
         {
