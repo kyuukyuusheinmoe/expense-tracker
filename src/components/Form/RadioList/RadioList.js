@@ -6,12 +6,14 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid'
 
 
 
-function RadioList({value, onChange, items}) {
+function RadioList({label, value, onChange, items}) {
   const handleOnClick = (item) => {
     onChange(item)
   }
   return (
-    <div className='flex gap-4'>
+    <div>
+      <p className='text-md  text-gray-400 mb-2'> {label} </p>
+      <div className='flex gap-4'>
       {items.map ((item, index) =>
       <div key={index} className="relative"> 
         {value?.value === item.value && <CheckCircleIcon className='w-4 h-4 absolute right-0 z-30 text-success' />}
@@ -19,6 +21,8 @@ function RadioList({value, onChange, items}) {
         </Button>
       </div>)  }
     </div>
+    </div>
+    
   )
 }
 
