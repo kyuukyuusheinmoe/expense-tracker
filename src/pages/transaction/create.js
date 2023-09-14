@@ -6,7 +6,6 @@ import {Dialog} from 'primereact/dialog'
 import { useRouter } from 'next/router'
 import LayoutWithHeader from '../../containers/Layout/LayoutWithHeader'
 import { CreateTransactionForm } from '../../constants/CreateTransactionForm'
-import clsx from 'clsx'
 import { componentMapper } from '../../utils/form/componentMapper'
 
 function TransactionCreatePage() {
@@ -14,8 +13,8 @@ function TransactionCreatePage() {
   const [confirmVisible, setConfirmVisible] = useState(false)
   const [apiData, setApiData] = useState({})
   const router = useRouter()
-  const typeCheck = useWatch({control, name: "type"})
   const {getValues, control, handleSubmit, reset, register, unregister} = methods;
+  const typeCheck = useWatch({control, name: "type"})
 
   useEffect(() => {
     if (typeCheck === "in") {
@@ -25,7 +24,8 @@ function TransactionCreatePage() {
     }
   }, [register, unregister, typeCheck]);
 
-  const onSubmit = () => {
+  const onSubmit = (data) => {
+    console.log ("xxx submitting data ", data)
     axios.post('http://localhost:3005/transactions', {
           ...getValues()
       }).then(response => {
@@ -41,20 +41,24 @@ function TransactionCreatePage() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className='overflow-scroll'>
-        <div className='p-4 grid gap-5'>
            <FormProvider {...methods}>
-              {
-                CreateTransactionForm.fields?.map ((field, index) => {
-                  const Component = componentMapper[field.formProps.type]
-                  return (<Component key={index}/>)
-                })
-              }
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className='p-4 grid gap-5'>
+                  {
+                    CreateTransactionForm.fields?.map ((field, index) => {
+                      const Component = componentMapper[field.formProps.type]?.component
+                      console.log ('xxx Component ', Component)
+                      return (Component ? <Component key={index} label={field.label} items={field.dataSource?.items || []}/> : null)
+                    })
+                  }
+                  <div className='flex flex-row-reverse p-4'>
+                    <Button label='Save' className='!py-2 fixed bottom-2 '/>
+                  </div>
+              </div>
 
+              </form>
            </FormProvider>
-        </div>
-        <div className='flex flex-row-reverse p-4'>
-          <Button label='Save' className='!py-2 fixed bottom-2 '/>
-        </div>
+        
       </form>
 
       <Dialog header={apiData.status === 'success' ? "Success" : "Fail"} visible={confirmVisible} onHide={() => setConfirmVisible(false)}>
