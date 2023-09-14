@@ -1,3 +1,5 @@
+import { necessityTypes } from "./ComponentData"
+
 export const CreateTransactionForm = {
     fields: [
         {
@@ -41,7 +43,11 @@ export const CreateTransactionForm = {
                 valueType: "number"
             },
             displayKey: "label",
-            displayValue: "value"
+            displayValue: "value",
+            dataSource: {
+                type: "API",
+                url: "http://localhost:4000/payments"
+            }
         },
         {
             label: "Necessity",
@@ -51,7 +57,11 @@ export const CreateTransactionForm = {
                 valueType: "number"
             },
             displayKey: "label",
-            displayValue: "value"
+            displayValue: "value",
+            dataSource: {
+                type: "LIST",
+                items: necessityTypes
+            }
         }
     ]
 }
