@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { InputComponent, CalendarComponent, RadioList, DropDownComponent } from '../../components/Form'
-import { userPaymentTypes, necessityTypes } from '../../constants/ComponentData'
 import { Button } from 'primereact/button'
-import { Controller, useForm, useWatch} from 'react-hook-form'
+import { useForm, useWatch, FormProvider} from 'react-hook-form'
 import axios from 'axios'
 import {Dialog} from 'primereact/dialog'
 import { useRouter } from 'next/router'
 import LayoutWithHeader from '../../containers/Layout/LayoutWithHeader'
+import { CreateTransactionForm } from '../../constants/CreateTransactionForm'
 import clsx from 'clsx'
+import { componentMapper } from '../../utils/form/componentMapper'
 
 function TransactionCreatePage() {
-  const {getValues, control, handleSubmit, reset, register, unregister} = useForm({defaultValues: {}})
+  const methods = useForm({defaultValues: {}})
   const [confirmVisible, setConfirmVisible] = useState(false)
   const [apiData, setApiData] = useState({})
   const router = useRouter()
   const typeCheck = useWatch({control, name: "type"})
+  const {getValues, control, handleSubmit, reset, register, unregister} = methods;
 
   useEffect(() => {
     if (typeCheck === "in") {
@@ -41,59 +42,15 @@ function TransactionCreatePage() {
     <>
       <form onSubmit={handleSubmit(onSubmit)} className='overflow-scroll'>
         <div className='p-4 grid gap-5'>
-            <Controller
-              name="title"
-              control={control}
-              render={({ field, fieldState }) => (
-                      <InputComponent label="Title" {...field}/>
-              )}/>
-            <Controller
-              name="amount"
-              control={control}
-              render={({ field, fieldState }) => (
-                      <InputComponent label="Amount" {...field}/>
-              )}/>
-            <Controller
-              name="date"
-              control={control}
-              render={({ field, fieldState }) => (
-                <CalendarComponent label="Date" {...field}/>
-              )}/>
-            <Controller
-              name="description"
-              control={control}
-              render={({ field, fieldState }) => (
-                      <InputComponent label="Description" {...field}/>
-              )}/>
-            <Controller
-              name="type"
-              control={control}
-              placeholder="Select Type"
-              render={({ field, fieldState }) => ( 
-                    <DropDownComponent options={[{name: "In", value: 'in'}, {name: "Out", value: "out"}]} label="Type" {...field} />
-               )}/>
-            <Controller
-              name="payment"
-              control={control}
-              render={({ field, fieldState }) => ( 
-                <div>
-                  <p className='text-md text-gray-400 mb-2'> {`${typeCheck=== "in" ? "Get" : "Pay"} with`} </p>
-                  <div className='flex flex-nowrap overflow-x-scroll relative'>
-                    <RadioList items={userPaymentTypes} {...field} />
-                  </div>
-                </div>
-               )}/>
-            <Controller
-              name="necessity"
-              control={control}
-              render={({ field, fieldState }) => ( 
-                <div className={clsx(typeCheck=== "in" && "hidden")}>
-                  <p className='text-md  text-gray-400 mb-2'> Necessity </p>
-                  <div className='flex flex-nowrap overflow-x-scroll relative'>
-                    <RadioList items={necessityTypes} {...field} />
-                  </div>
-                </div>
-              )}/>
+           <FormProvider {...methods}>
+              {
+                CreateTransactionForm.fields?.map ((field, index) => {
+                  const Component = componentMapper[field.formProps.type]
+                  return (<Component key={index}/>)
+                })
+              }
+
+           </FormProvider>
         </div>
         <div className='flex flex-row-reverse p-4'>
           <Button label='Save' className='!py-2 fixed bottom-2 '/>
