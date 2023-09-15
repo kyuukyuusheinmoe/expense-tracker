@@ -4,8 +4,6 @@ import { IconColorMapper } from '../../../utils/common'
 import clsx from 'clsx'
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
 
-
-
 function RadioList({label, value, onChange, items}) {
   const handleOnClick = (item) => {
     onChange(item)

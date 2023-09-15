@@ -40,27 +40,21 @@ function TransactionCreatePage() {
     }
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className='overflow-scroll'>
-           <FormProvider {...methods}>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div className='p-4 grid gap-5'>
-                  {
-                    CreateTransactionForm.fields?.map ((field, index) => {
-                      const Component = componentMapper[field.formProps.type]?.component
-                      console.log ('xxx Component ', Component)
-                      return (Component ? <Component key={index} label={field.label} items={field.dataSource?.items || []}/> : null)
-                    })
-                  }
-                  <div className='flex flex-row-reverse p-4'>
-                    <Button label='Save' className='!py-2 fixed bottom-2 '/>
-                  </div>
-              </div>
-
-              </form>
-           </FormProvider>
-        
-      </form>
-
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className='p-4 grid gap-5'>
+            {
+              CreateTransactionForm.fields?.map ((field, index) => {
+              const Component = componentMapper[field.formProps.type]?.component
+              return (Component ? <Component key={index} label={field.label} items={field.dataSource?.items || []} name={field.name}/> : null)
+            })
+              }
+            <div className='flex flex-row-reverse p-4'>
+              <Button type='submit' label='Save' className='!py-2 fixed bottom-2' />
+            </div>
+          </div>
+        </form>
+      </FormProvider>
       <Dialog header={apiData.status === 'success' ? "Success" : "Fail"} visible={confirmVisible} onHide={() => setConfirmVisible(false)}>
           {
             apiData.status === 'success' ? 
