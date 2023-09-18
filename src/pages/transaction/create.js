@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from 'primereact/button'
 import { useForm, useWatch, FormProvider} from 'react-hook-form'
-import axios from 'axios'
 import {Dialog} from 'primereact/dialog'
 import { useRouter } from 'next/router'
 import LayoutWithHeader from '../../containers/Layout/LayoutWithHeader'
 import { CreateTransactionForm } from '../../constants/CreateTransactionForm'
-import { componentMapper } from '../../utils/form/componentMapper'
+import DynamicFormElement from '../../components/Form/DynamicFormElement'
+import { axiosClient } from '../../utils/api/axiosClient'
 
 function TransactionCreatePage() {
   const methods = useForm({defaultValues: {}})
   const [confirmVisible, setConfirmVisible] = useState(false)
   const [apiData, setApiData] = useState({})
   const router = useRouter()
-  const {getValues, control, handleSubmit, reset, register, unregister} = methods;
+  const {control, handleSubmit, reset, register, unregister} = methods;
   const typeCheck = useWatch({control, name: "type"})
 
   useEffect(() => {
@@ -25,9 +25,8 @@ function TransactionCreatePage() {
   }, [register, unregister, typeCheck]);
 
   const onSubmit = (data) => {
-    console.log ("xxx submitting data ", data)
-    axios.post('http://localhost:3005/transactions', {
-          ...getValues()
+    axiosClient.post('/transaction/create', {
+          ...data
       }).then(response => {
       console.log('transactions posted:', response.data);
       setApiData({status: 'success'})
@@ -45,8 +44,7 @@ function TransactionCreatePage() {
           <div className='p-4 grid gap-5'>
             {
               CreateTransactionForm.fields?.map ((field, index) => {
-              const Component = componentMapper[field.formProps.type]?.component
-              return (Component ? <Component key={index} label={field.label} items={field.dataSource?.items || []} name={field.name}/> : null)
+              return (<DynamicFormElement key={index} componentType={field.formProps.type} {...field}/>)
             })
               }
             <div className='flex flex-row-reverse p-4'>
