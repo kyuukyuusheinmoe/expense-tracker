@@ -1,4 +1,4 @@
-import { userPaymentTypes, necessityTypes } from "./ComponentData" 
+import { usageCategories, userPaymentTypes, necessityTypes } from "./ComponentData" 
 
 export const CreateTransactionForm = {
     fields: [
@@ -29,11 +29,16 @@ export const CreateTransactionForm = {
             label: "Usage Category",
             name: 'category',
             formProps : {
-                type: "Dropdown",
-                valueType: "number"
+                type: "DropDown",
+                valueType: "string"
             },
             displayKey: "label",
-            displayValue: "value"
+            displayValue: "value",
+            dataSource: {
+                type: "API",
+                url: "http://localhost:4000/payments",
+                items: usageCategories
+            }
         },
         {
             label: "Payment",
