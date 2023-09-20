@@ -26,6 +26,22 @@ export const CreateTransactionForm = {
             }
         },
         {
+            label: "Type",
+            name: 'type',
+            formProps : {
+                type: "DropDown",
+                valueType: "string"
+            },
+            defaultValue: {label: "Out", value: "out"},
+            displayKey: "label",
+            displayValue: "value",
+            dataSource: {
+                type: "API",
+                url: "http://localhost:4000/categories",
+                items: [{label: "Out", value: "out"}, {label: "In", value: "in"}],
+            }
+        },
+        {
             label: "Usage Category",
             name: 'category',
             formProps : {
@@ -36,7 +52,7 @@ export const CreateTransactionForm = {
             displayValue: "value",
             dataSource: {
                 type: "API",
-                url: "http://localhost:4000/payments",
+                url: "http://localhost:4000/categories",
                 items: usageCategories
             }
         },

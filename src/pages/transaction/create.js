@@ -44,7 +44,7 @@ function TransactionCreatePage() {
           <div className='p-4 grid gap-5'>
             {
               CreateTransactionForm.fields?.map ((field, index) => {
-              return (<DynamicFormElement key={index} componentType={field.formProps.type} {...field}/>)
+              return (<DynamicFormElement key={index} componentType={field.formProps.type} {...field} initialValue={field.defaultValue}/>)
             })
               }
             <div className='flex flex-row-reverse p-4'>
