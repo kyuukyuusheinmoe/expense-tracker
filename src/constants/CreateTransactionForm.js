@@ -32,7 +32,7 @@ export const CreateTransactionForm = {
                 type: "DropDown",
                 valueType: "string"
             },
-            defaultValue: {label: "Out", value: "out"},
+            defaultValue: "out",
             displayKey: "label",
             displayValue: "value",
             dataSource: {
@@ -83,6 +83,11 @@ export const CreateTransactionForm = {
             dataSource: {
                 type: "LIST",
                 items: necessityTypes
+            },
+            condition: {
+                    show: false,
+                    name: "type",
+                    hasValue: "out"
             }
         }
     ]

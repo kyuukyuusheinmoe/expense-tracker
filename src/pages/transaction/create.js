@@ -7,36 +7,39 @@ import LayoutWithHeader from '../../containers/Layout/LayoutWithHeader'
 import { CreateTransactionForm } from '../../constants/CreateTransactionForm'
 import DynamicFormElement from '../../components/Form/DynamicFormElement'
 import { axiosClient } from '../../utils/api/axiosClient'
+import { setIsShow } from '../../utils/form/validations'
 
 function TransactionCreatePage() {
-  const methods = useForm({defaultValues: {}})
+  const methods = useForm({defaultValues: {}, shouldUnregister: true})
   const [confirmVisible, setConfirmVisible] = useState(false)
   const [apiData, setApiData] = useState({})
   const router = useRouter()
-  const {control, handleSubmit, reset, register, unregister} = methods;
-  const typeCheck = useWatch({control, name: "type"})
+  const {control, handleSubmit, reset, register, unregister,} = methods;
+  const watchValues = {type: useWatch({control, name: "type"})}
 
   useEffect(() => {
-    if (typeCheck === "in") {
+    if (watchValues.type === "in") {
       unregister("necessity");
     } else {
       register("necessity");
     }
-  }, [register, unregister, typeCheck]);
+  }, [register, unregister, watchValues.type]);
 
   const onSubmit = (data) => {
-    axiosClient.post('/transaction/create', {
-          ...data
-      }).then(response => {
-      console.log('transactions posted:', response.data);
-      setApiData({status: 'success'})
-      setConfirmVisible(true)
-      }).catch(error => {
-        setApiData({status: 'fail'})
-        console.error('Error posting data:', error);
-        setConfirmVisible(true)
-      });
+    console.log ('xxx submit ', data)
+    // axiosClient.post('/transaction/create', {
+    //       ...data
+    //   }).then(response => {
+    //   console.log('transactions posted:', response.data);
+    //   setApiData({status: 'success'})
+    //   setConfirmVisible(true)
+    //   }).catch(error => {
+    //     setApiData({status: 'fail'})
+    //     console.error('Error posting data:', error);
+    //     setConfirmVisible(true)
+    //   });
     }
+
   return (
     <>
       <FormProvider {...methods}>
@@ -44,7 +47,7 @@ function TransactionCreatePage() {
           <div className='p-4 grid gap-5'>
             {
               CreateTransactionForm.fields?.map ((field, index) => {
-              return (<DynamicFormElement key={index} componentType={field.formProps.type} {...field} initialValue={field.defaultValue}/>)
+              return (field.condition ? setIsShow(field.condition, watchValues) && <DynamicFormElement control={control} key={index} componentType={field.formProps.type} {...field} defaultValue={field.defaultValue}/>: <DynamicFormElement control={control} key={index} componentType={field.formProps.type} {...field} defaultValue={field.defaultValue}/>)
             })
               }
             <div className='flex flex-row-reverse p-4'>

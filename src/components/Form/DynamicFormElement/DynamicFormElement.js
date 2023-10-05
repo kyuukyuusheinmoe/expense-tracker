@@ -2,23 +2,19 @@ import React from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 import { componentMapper } from '../../../utils/form/componentMapper';
 
-function DynamicFormElement({componentType, label, dataSource, name, initialValue}) {
-  const {control} = useFormContext()
+function DynamicFormElement({control, componentType, label, dataSource, name, defaultValue}) {
   const {
     field,
   } = useController({
     name,
     control,
-    defaultValue: initialValue || ""
   });
-
-  console.log ('xxx defaultValue ', field, initialValue)
 
   const Component = componentMapper[componentType]?.component
 
   return (
     <>
-      {Component && <Component label={label} items={dataSource?.items || []} name={field.name} {...field}/>} 
+      {Component && <Component label={label} items={dataSource?.items || []} name={field.name} {...field} defaultValue={defaultValue}/>} 
     </>
   )
 }
