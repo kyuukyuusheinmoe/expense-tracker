@@ -36,8 +36,7 @@ export const CreateTransactionForm = {
             displayKey: "label",
             displayValue: "value",
             dataSource: {
-                type: "API",
-                url: "http://localhost:4000/categories",
+                type: "LIST",
                 items: [{label: "Out", value: "out"}, {label: "In", value: "in"}],
             }
         },
@@ -52,8 +51,7 @@ export const CreateTransactionForm = {
             displayValue: "value",
             dataSource: {
                 type: "API",
-                url: "http://localhost:4000/categories",
-                items: usageCategories
+                url: "http://localhost:4000/category/list",
             }
         },
         {
@@ -66,8 +64,7 @@ export const CreateTransactionForm = {
             displayKey: "label",
             displayValue: "value",
             dataSource: {
-                type: "API",
-                url: "http://localhost:4000/payments",
+                type: "LIST",
                 items: userPaymentTypes
             }
         },

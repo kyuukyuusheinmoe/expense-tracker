@@ -3,7 +3,6 @@ import { Dropdown } from 'primereact/dropdown';
 
 
 function DropDownComponent({label, items, value, onChange, placeholder, displayKey, defaultValue}) {
-  console.log ('xxx defaultValue ', defaultValue)
 
   return (
     <div className="grid grid-cols-12 place-items-center">
