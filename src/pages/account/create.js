@@ -8,6 +8,8 @@ import {Dialog} from 'primereact/dialog'
 import { useRouter } from 'next/router'
 import LayoutWithHeader from '../../containers/Layout/LayoutWithHeader'
 import clsx from 'clsx'
+import { CreateAccountForm as components } from '../../constants/CreateAccountForm'
+import DynamicFormElement from '../../components/Form/DynamicFormElement/index';
 
 function AccountCreatePage() {
   const {getValues, control, handleSubmit, reset, register, unregister} = useForm({defaultValues: {}})
@@ -41,59 +43,7 @@ function AccountCreatePage() {
     <>
       <form onSubmit={handleSubmit(onSubmit)} className='overflow-scroll'>
         <div className='p-4 grid gap-5'>
-            <Controller
-              name="title"
-              control={control}
-              render={({ field, fieldState }) => (
-                      <InputComponent label="Title" {...field}/>
-              )}/>
-            <Controller
-              name="amount"
-              control={control}
-              render={({ field, fieldState }) => (
-                      <InputComponent label="Amount" {...field}/>
-              )}/>
-            <Controller
-              name="date"
-              control={control}
-              render={({ field, fieldState }) => (
-                <CalendarComponent label="Date" {...field}/>
-              )}/>
-            <Controller
-              name="description"
-              control={control}
-              render={({ field, fieldState }) => (
-                      <InputComponent label="Description" {...field}/>
-              )}/>
-            <Controller
-              name="type"
-              control={control}
-              placeholder="Select Type"
-              render={({ field, fieldState }) => ( 
-                    <DropDownComponent options={[{name: "In", value: 'in'}, {name: "Out", value: "out"}]} label="Type" {...field} />
-               )}/>
-            <Controller
-              name="payment"
-              control={control}
-              render={({ field, fieldState }) => ( 
-                <div>
-                  <p className='text-md text-gray-400 mb-2'> {`${typeCheck=== "in" ? "Get" : "Pay"} with`} </p>
-                  <div className='flex flex-nowrap overflow-x-scroll relative'>
-                    <RadioList items={userPaymentTypes} {...field} />
-                  </div>
-                </div>
-               )}/>
-            <Controller
-              name="necessity"
-              control={control}
-              render={({ field, fieldState }) => ( 
-                <div className={clsx(typeCheck=== "in" && "hidden")}>
-                  <p className='text-md  text-gray-400 mb-2'> Necessity </p>
-                  <div className='flex flex-nowrap overflow-x-scroll relative'>
-                    <RadioList items={necessityTypes} {...field} />
-                  </div>
-                </div>
-              )}/>
+            {components?.map ((component, index) => <DynamicFormElement key={index} {...component} />)}
         </div>
         <div className='flex flex-row-reverse p-4'>
           <Button label='Save' className='!py-2 fixed bottom-2 '/>
