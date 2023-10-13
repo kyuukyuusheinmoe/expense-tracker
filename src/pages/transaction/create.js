@@ -44,17 +44,18 @@ function TransactionCreatePage() {
     <>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className='p-4 grid gap-5'>
-            {
-              CreateTransactionForm.fields?.map ((field, index) => {
-              return (field.condition ? setIsShow(field.condition, watchValues) && <DynamicFormElement control={control} key={index} componentType={field.formProps.type} {...field} defaultValue={field.defaultValue} />: 
-              <DynamicFormElement control={control} key={index} componentType={field.formProps.type} {...field} defaultValue={field.defaultValue} />)
-            })
-              }
-            <div className='flex flex-row-reverse p-4'>
-              <Button type='submit' label='Save' className='!py-2 fixed bottom-2' />
+            <div className='p-4 grid gap-5'>
+              {
+                CreateTransactionForm.fields?.map ((field, index) => {
+                return (
+                  // field.condition ? setIsShow(field.condition, watchValues) && <DynamicFormElement control={control} key={index} componentType={field.formProps.type} {...field} defaultValue={field.defaultValue} />: 
+                <DynamicFormElement control={control} key={index} componentType={field.formProps.type} {...field} defaultValue={field.defaultValue} />)
+              })
+                }
+              <div className='flex flex-row-reverse p-4'>
+                <Button type='submit' label='Save' className='!py-2 fixed bottom-2' />
+              </div>
             </div>
-          </div>
         </form>
       </FormProvider>
       <Dialog header={apiData.status === 'success' ? "Success" : "Fail"} visible={confirmVisible} onHide={() => setConfirmVisible(false)}>

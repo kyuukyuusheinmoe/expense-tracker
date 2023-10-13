@@ -1,9 +1,10 @@
-import React from 'react'
-import { useController } from 'react-hook-form'
+import React, {useEffect, useState} from 'react'
+import { useController, useFormContext } from 'react-hook-form'
 import { componentMapper } from '../../../utils/form/componentMapper';
 import useAPIData from '../../../hooks/useAPIData';
+import { DynamicFormContext } from '../../../contexts/DynamicFormContext';
 
-function DynamicFormElement({control, componentType, label, dataSource, name, defaultValue}) {
+function DynamicFormElement({control, componentType, label, dataSource, name, defaultValue, condition}) {
   const {
     field,
   } = useController({
@@ -11,13 +12,26 @@ function DynamicFormElement({control, componentType, label, dataSource, name, de
     control,
   });
 
+  const {watch} = useFormContext()
+
+  const [componentShow, setComponentShow] = useState(true)
+
+    const watchValues = watch()
+    
+    useEffect(()=> {
+        if (condition) {
+          const {name, hasValue, show} = condition;
+          setComponentShow(()=> watchValues[name] === hasValue ? show : true);
+        }
+      }, [condition, watchValues, setComponentShow])
+
   const Component = componentMapper[componentType]?.component
 
   const itemList =  useAPIData(dataSource)
 
   return (
     <>
-      {Component && <Component label={label} items={itemList || []} name={field.name} {...field} defaultValue={defaultValue}/>} 
+      {Component && componentShow && <Component label={label} items={itemList || []} name={field.name} {...field} defaultValue={defaultValue}/>} 
     </>
   )
 }

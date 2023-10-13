@@ -82,9 +82,9 @@ export const CreateTransactionForm = {
                 items: necessityTypes
             },
             condition: {
-                    show: false,
-                    name: "type",
-                    hasValue: "out"
+                show: false,
+                name: "type",
+                hasValue: "out"
             }
         }
     ]
