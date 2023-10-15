@@ -1,29 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Button } from 'primereact/button'
 import { useForm, useWatch, FormProvider} from 'react-hook-form'
 import {Dialog} from 'primereact/dialog'
 import { useRouter } from 'next/router'
 import LayoutWithHeader from '../../containers/Layout/LayoutWithHeader'
-import { CreateTransactionForm } from '../../constants/CreateTransactionForm'
+import { CreateTransactionForm} from '../../constants/CreateTransactionForm'
 import DynamicFormElement from '../../components/Form/DynamicFormElement'
 import { axiosClient } from '../../utils/api/axiosClient'
-import { setIsShow } from '../../utils/form/validations'
 
 function TransactionCreatePage() {
-  const methods = useForm({defaultValues: {}, shouldUnregister: true})
+  const methods = useForm({defaultValues: useMemo(() => {
+    let arrToObject = {}
+    CreateTransactionForm?.fields.reduce((acc={}, compo)=> {
+        arrToObject[compo.name] = compo.defaultValue
+      return arrToObject;
+    });
+    return arrToObject
+  }, []), shouldUnregister: true})
   const [confirmVisible, setConfirmVisible] = useState(false)
   const [apiData, setApiData] = useState({})
   const router = useRouter()
   const {control, handleSubmit, reset, register, unregister,} = methods;
-  const watchValues = {type: useWatch({control, name: "type"})}
-
-  useEffect(() => {
-    if (watchValues.type === "in") {
-      unregister("necessity");
-    } else {
-      register("necessity");
-    }
-  }, [register, unregister, watchValues.type]);
 
   const onSubmit = (data) => {
     console.log ('xxx submit ', data)
