@@ -1,7 +1,6 @@
 import { usageCategories, userPaymentTypes, necessityTypes } from "./ComponentData" 
 
-export const CreateTransactionForm = {
-    fields: [
+export const CreateTransactionForm =  [
         {
             label: "Title",
             name: 'title',
@@ -88,4 +87,3 @@ export const CreateTransactionForm = {
             }
         }
     ]
-}

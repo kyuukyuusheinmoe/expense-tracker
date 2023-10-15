@@ -1,17 +1,17 @@
 import React, { useState, useMemo } from 'react'
 import { Button } from 'primereact/button'
-import { useForm, useWatch, FormProvider} from 'react-hook-form'
+import { useForm, FormProvider} from 'react-hook-form'
 import {Dialog} from 'primereact/dialog'
 import { useRouter } from 'next/router'
 import LayoutWithHeader from '../../containers/Layout/LayoutWithHeader'
-import { CreateTransactionForm} from '../../constants/CreateTransactionForm'
+import { CreateTransactionForm as components} from '../../constants/CreateTransactionForm'
 import DynamicFormElement from '../../components/Form/DynamicFormElement'
 import { axiosClient } from '../../utils/api/axiosClient'
 
 function TransactionCreatePage() {
   const methods = useForm({defaultValues: useMemo(() => {
     let arrToObject = {}
-    CreateTransactionForm?.fields.reduce((acc={}, compo)=> {
+    components.reduce((acc={}, compo)=> {
         arrToObject[compo.name] = compo.defaultValue
       return arrToObject;
     });
@@ -20,7 +20,7 @@ function TransactionCreatePage() {
   const [confirmVisible, setConfirmVisible] = useState(false)
   const [apiData, setApiData] = useState({})
   const router = useRouter()
-  const {control, handleSubmit, reset, register, unregister,} = methods;
+  const {control, handleSubmit, reset} = methods;
 
   const onSubmit = (data) => {
     console.log ('xxx submit ', data)
@@ -43,9 +43,8 @@ function TransactionCreatePage() {
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className='p-4 grid gap-5'>
               {
-                CreateTransactionForm.fields?.map ((field, index) => {
+                components?.map ((field, index) => {
                 return (
-                  // field.condition ? setIsShow(field.condition, watchValues) && <DynamicFormElement control={control} key={index} componentType={field.formProps.type} {...field} defaultValue={field.defaultValue} />: 
                 <DynamicFormElement control={control} key={index} componentType={field.formProps.type} {...field} defaultValue={field.defaultValue} />)
               })
                 }
