@@ -9,7 +9,8 @@ import { CreateAccountForm as components } from '../../constants/CreateAccountFo
 import DynamicFormElement from '../../components/Form/DynamicFormElement/index';
 
 function AccountCreatePage() {
-  const methods = useForm({defaultValues: {}})
+
+  const methods = useForm()
   const [confirmVisible, setConfirmVisible] = useState(false)
   const [apiData, setApiData] = useState({})
   const router = useRouter()
