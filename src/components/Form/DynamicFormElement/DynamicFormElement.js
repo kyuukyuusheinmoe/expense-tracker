@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 import { componentMapper } from '../../../utils/form/componentMapper';
 import useAPIData from '../../../hooks/useAPIData';
-import { DynamicFormContext } from '../../../contexts/DynamicFormContext';
 
 function DynamicFormElement({control, componentType, label, dataSource, name, defaultValue, condition}) {
   const {
