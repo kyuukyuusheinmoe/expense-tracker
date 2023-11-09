@@ -3,7 +3,7 @@ import { BANK, CASH, PAY } from "./Account"
 export const CreateAccountForm = [
     {
         label: "Account Type",
-        name: 'type',
+        name: 'accountType',
         formProps : {
             type: "DropDown",
             valueType: "string"
@@ -22,17 +22,22 @@ export const CreateAccountForm = [
             valueType: "string"
         },
         displayKey: "label",
+        valueKey: "Object",
         dataSource: {
             type: "LIST",
-            items: [{label: "AYA PAY", value: "ayapay", type: PAY}, {label: "KBZ PAY", value: "kpay", type: PAY}, {label: "KBZ Mobile Banking", value: "kbzBanking", type: BANK}, {label: "AYA Mobile Banking", value: "ayaBanking", type: BANK}],
+            items: [{label: "AYA PAY", value: "ayapay", accountType: PAY}, 
+                    {label: "KBZ PAY", value: "kpay", accountType: PAY}, 
+                    {label: "KBZ Mobile Banking", value: "kbzBanking", accountType: BANK}, 
+                    {label: "AYA Mobile Banking", value: "ayaBanking", accountType: BANK}
+                ],
             filterCondition: {
-                name: "type",
-                filterValue: "type"
+                name: "accountType",
+                filterValue: "accountType"
             }
         },
         condition: {
             show: false,
-            name: "type",
+            name: "accountType",
             hasValue: "cash"
         },
     },
