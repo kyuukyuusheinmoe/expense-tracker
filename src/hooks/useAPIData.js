@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAPIData } from "../components/Form/DynamicFormElement/utils";
 
-const useAPIData = (dataSource) => {
+const useAPIData = (dataSource, watchValue) => {
     const [data, setData] = useState()
 
     useEffect(()=> {
@@ -11,7 +11,12 @@ const useAPIData = (dataSource) => {
                     const apiData = await getAPIData(dataSource.url);
                     setData(apiData);
                 } else if (dataSource && dataSource.items) {
-                    setData(dataSource.items);
+                    if (dataSource.filterCondition) {
+                        const {filterValue} = dataSource.filterCondition;
+                        setData(()=> dataSource.items.filter (data => data[filterValue] === watchValue))
+                    } else {
+                        setData(dataSource.items);
+                    }
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -19,7 +24,7 @@ const useAPIData = (dataSource) => {
         };
 
         fetchData();
-    }, [dataSource])
+    }, [dataSource, watchValue])
 
     return data;   
 }
