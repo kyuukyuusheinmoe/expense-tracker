@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import LayoutWithHeader from '../../containers/Layout/LayoutWithHeader'
 import { CreateTransactionForm as components} from '../../constants/CreateTransactionForm'
 import DynamicFormElement from '../../components/Form/DynamicFormElement'
-import { axiosClient } from '../../utils/api/axiosClient'
+import { createTransction } from '../../services/TransactionController'
 
 function TransactionCreatePage() {
   const methods = useForm({defaultValues: useMemo(() => {
@@ -22,20 +22,13 @@ function TransactionCreatePage() {
   const router = useRouter()
   const {control, handleSubmit, reset} = methods;
 
-  const onSubmit = (data) => {
+  const onSubmit =async (data) => {
     console.log ('xxx submit ', data)
-    // axiosClient.post('/transaction/create', {
-    //       ...data
-    //   }).then(response => {
-    //   console.log('transactions posted:', response.data);
-    //   setApiData({status: 'success'})
-    //   setConfirmVisible(true)
-    //   }).catch(error => {
-    //     setApiData({status: 'fail'})
-    //     console.error('Error posting data:', error);
-    //     setConfirmVisible(true)
-    //   });
-    }
+    const result = await createTransction(data)
+    console.log ('xxx result ', result)
+    setApiData({status: result.status === 200 ? 'success' : 'fail'})
+    setConfirmVisible(true)
+  }
 
   return (
     <>
