@@ -33,7 +33,6 @@ function AccountListPage() {
   )
 }
 
-export default AccountListPage
 
 AccountListPage.getLayout = function getLayout(page) {
   return <LayoutWithHeader title="Accounts">
@@ -41,3 +40,5 @@ AccountListPage.getLayout = function getLayout(page) {
     <BottomNavBar onClickPlus={()=> Router.push('/account/create')}/>
   </LayoutWithHeader>
 }
+
+export default AccountListPage

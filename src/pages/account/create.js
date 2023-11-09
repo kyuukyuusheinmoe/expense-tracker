@@ -21,6 +21,9 @@ function AccountCreatePage() {
   const onSubmit = async (data) => {
     const res = await axiosClient.post('/account/create', {...data, balance: Number(data.balance)})
     console.log ('xxx res ', res)
+    if (res.status === 200) {
+      router.push('/account')
+    }
 
   }
   return (
