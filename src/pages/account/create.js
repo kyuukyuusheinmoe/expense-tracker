@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import LayoutWithHeader from '../../containers/Layout/LayoutWithHeader'
 import { CreateAccountForm as components } from '../../constants/CreateAccountForm'
 import DynamicFormElement from '../../components/Form/DynamicFormElement/index';
+import { axiosClient } from '../../utils/api/axiosClient';
 
 function AccountCreatePage() {
 
@@ -17,19 +18,11 @@ function AccountCreatePage() {
 
   const {getValues, control, handleSubmit, reset} = methods;
 
-  const onSubmit = () => {
-    axios.post('http://localhost:3005/transactions', {
-          ...getValues()
-      }).then(response => {
-      console.log('transactions posted:', response.data);
-      setApiData({status: 'success'})
-      setConfirmVisible(true)
-      }).catch(error => {
-        setApiData({status: 'fail'})
-        console.error('Error posting data:', error);
-        setConfirmVisible(true)
-      });
-    }
+  const onSubmit = async (data) => {
+    const res = await axiosClient.post('/account/create', {...data, balance: Number(data.balance)})
+    console.log ('xxx res ', res)
+
+  }
   return (
     <>
       <FormProvider {...methods}>
