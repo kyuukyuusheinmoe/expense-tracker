@@ -19,7 +19,7 @@ export const CreateTransactionForm =  [
         },
         {
             label: "Date",
-            name: 'date',
+            name: 'spentAt',
             formProps : {
                 type: "Calendar"
             }

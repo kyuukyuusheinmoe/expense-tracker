@@ -24,10 +24,11 @@ function TransactionCreatePage() {
 
   const onSubmit =async (data) => {
     console.log ('xxx submit ', data)
-    const result = await createTransction(data)
-    console.log ('xxx result ', result)
-    setApiData({status: result.status === 200 ? 'success' : 'fail'})
-    setConfirmVisible(true)
+    const requestData  = {...data, necessity: data.necessity.value}
+    const result = await createTransction(requestData)
+    if (result.status === 200 ) {
+      router.push ('/transactions')
+    }
   }
 
   return (
