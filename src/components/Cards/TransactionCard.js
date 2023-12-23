@@ -12,7 +12,7 @@ function TransactionCard({item}) {
                 <Button icon={IconColorMapper(item.category)?.icon} className={clsx(IconColorMapper(item.category)?.color, "!rounded-full !px-2 !py-1")} ><span className='ml-1 mt-1'>{item.category}</span></Button>
                 <Button icon={IconColorMapper(item.payment)?.icon || ''} className={clsx(IconColorMapper(item.payment)?.color, "!rounded-full !px-2 !py-1")}><span className='ml-1 mt-1'>{item.payment}</span></Button>
               </div>
-              <p className='text-enavy-700 font-bold'><span className={clsx(item.type === 'debit' ? 'pi pi-minus text-error': 'pi pi-plus text-success', 'mr-2')}></span>{item?.amount && `${Intl.NumberFormat().format(item.amount)} ${currency}`} </p>
+              <p className='text-enavy-700 font-bold'><span className={clsx(item.spentType === 'out' ? 'pi pi-minus text-error': 'pi pi-plus text-success', 'mr-2')}></span>{item?.amount && `${Intl.NumberFormat().format(item.amount)} ${currency}`} </p>
             </div>
         </div>
   )
