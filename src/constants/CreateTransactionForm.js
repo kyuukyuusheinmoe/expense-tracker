@@ -82,7 +82,7 @@ export const CreateTransactionForm =  [
             },
             condition: {
                 show: false,
-                name: "type",
+                name: "spentType",
                 hasValue: "in"
             }
         }
