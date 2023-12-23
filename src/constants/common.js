@@ -4,9 +4,9 @@ export const currency = "MMK"
 
 export const TRXN_DEBIT = 'Debit';
 export const TRXN_CREDIT = 'Credit';
-export const PAYMENT_CASH = 'Cash';
-export const PAYMENT_BANK = 'Bank';
-export const PAYMENT_PAY = 'Pay';
+export const PAYMENT_CASH = 'CASH';
+export const PAYMENT_BANK = 'BANK';
+export const PAYMENT_PAY = 'PAY';
 export const CATEGORY_BILLS = 'Bills'
 export const NECESSITY_LOW = 'Low'
 export const NECESSITY_MODERATE = 'Moderate'
