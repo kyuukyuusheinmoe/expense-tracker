@@ -3,7 +3,7 @@ import { useController, useFormContext, useWatch } from 'react-hook-form'
 import { componentMapper } from '../../../utils/form/componentMapper';
 import useAPIData from '../../../hooks/useAPIData';
 
-function DynamicFormElement({control, componentType, label, dataSource, name, defaultValue, condition}) {
+function DynamicFormElement({control,valueType, componentType, label, dataSource, name, defaultValue, condition, ...rest }) {
   const {
     field,
   } = useController({
@@ -40,7 +40,7 @@ function DynamicFormElement({control, componentType, label, dataSource, name, de
 
   return (
     <>
-      {Component && componentShow && <Component label={label} items={itemList || []} name={field.name} {...field} defaultValue={defaultValue}/>} 
+      {Component && componentShow && <Component type={valueType} label={label} items={itemList || []} name={field.name} {...field} defaultValue={defaultValue} {...rest}/>} 
     </>
   )
 }

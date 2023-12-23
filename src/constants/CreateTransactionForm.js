@@ -13,7 +13,7 @@ export const CreateTransactionForm =  [
             label: "Amount",
             name: 'amount',
             formProps : {
-                type: "Input",
+                type: "Number",
                 valueType: "number"
             }
         },
@@ -26,7 +26,7 @@ export const CreateTransactionForm =  [
         },
         {
             label: "Type",
-            name: 'type',
+            name: 'spentType',
             formProps : {
                 type: "DropDown",
                 valueType: "string"
@@ -41,13 +41,13 @@ export const CreateTransactionForm =  [
         },
         {
             label: "Usage Category",
-            name: 'category',
+            name: 'categoryId',
             formProps : {
                 type: "DropDown",
                 valueType: "string"
             },
             displayKey: "label",
-            displayValue: "value",
+            displayValue: "id",
             dataSource: {
                 type: "API",
                 url: "http://localhost:4000/category/list",
@@ -55,16 +55,16 @@ export const CreateTransactionForm =  [
         },
         {
             label: "Payment",
-            name: 'payment',
+            name: 'accountId',
             formProps : {
                 type: "RadioSelect",
                 valueType: "number"
             },
-            displayKey: "label",
-            displayValue: "value",
+            displayKey: "name",
+            displayValue: "id",
             dataSource: {
-                type: "LIST",
-                items: userPaymentTypes
+                type: "API",
+                url: "http://localhost:4000/account/list",
             }
         },
         {

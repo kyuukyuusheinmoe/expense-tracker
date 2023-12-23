@@ -4,9 +4,9 @@ import { IconColorMapper } from '../../../utils/common'
 import clsx from 'clsx'
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
 
-function RadioList({label, value, onChange, items}) {
+function RadioList({label, value, onChange, items, displayKey, displayValue}) {
   const handleOnClick = (item) => {
-    onChange(item)
+    onChange(item[displayValue])
   }
   return (
     <div>
@@ -14,9 +14,9 @@ function RadioList({label, value, onChange, items}) {
       <div className='flex gap-4'>
       {items.map ((item, index) =>
       <div key={index} className="relative"> 
-        {value?.value === item.value && <CheckCircleIcon className='w-4 h-4 absolute right-0 z-30 text-success' />}
-        <Button  type='button' icon={IconColorMapper(item?.value)?.icon || ''} className={clsx(IconColorMapper(item?.value)?.color, "!rounded-full !px-2 !py-1")} onClick={()=> {handleOnClick(item)}}><span className='ml-1 mt-1'>{item?.label}</span>
-        </Button>
+        {value === item[displayValue] && <CheckCircleIcon className='w-4 h-4 absolute right-0 z-30 text-success' />}
+          <Button  type='button' icon={IconColorMapper(item?.value)?.icon || ''} className={clsx(IconColorMapper(item?.value)?.color, "!rounded-full !px-2 !py-1")} onClick={()=> {handleOnClick(item)}}><span className='ml-1 mt-1'>{item?.[displayKey]}</span>
+          </Button>
       </div>)  }
     </div>
     </div>
