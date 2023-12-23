@@ -22,12 +22,11 @@ function TransactionCreatePage() {
   const router = useRouter()
   const {control, handleSubmit, reset} = methods;
 
-  const onSubmit =async (data) => {
-    console.log ('xxx submit ', data)
-    const requestData  = {...data, necessity: data.necessity.value}
+  const onSubmit = async (data) => {
+    const requestData  = {...data}
     const result = await createTransction(requestData)
     if (result.status === 200 ) {
-      router.push ('/transactions')
+      router.push ('/')
     }
   }
 
@@ -39,8 +38,8 @@ function TransactionCreatePage() {
               {
                 components?.map ((field, index) => {
                 return (
-                <DynamicFormElement control={control} key={index} componentType={field.formProps.type} {...field} defaultValue={field.defaultValue} />)
-              })
+                    <DynamicFormElement control={control} key={index} componentType={field.formProps.type} {...field} defaultValue={field.defaultValue}/>)
+                })
                 }
               <div className='flex flex-row-reverse p-4'>
                 <Button type='submit' label='Save' className='!py-2 fixed bottom-2' />
