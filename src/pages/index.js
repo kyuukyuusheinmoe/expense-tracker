@@ -4,6 +4,7 @@ import { TransactionCard } from '../components/Cards'
 import { MainLayout } from '../containers/Layout'
 import BottomNavBar from '../containers/Layout/BottomNavBar'
 import Router from 'next/router'
+import TransactionList from '../containers/Home/TransactionList';
 
 const user_expense = {
   current: {
@@ -58,13 +59,7 @@ export default function Home() {
             <p className='text-enavy-700 font-bold'>{current?.expense && `${Intl.NumberFormat().format(current.expense)} ${currency}`} </p>
           </div>
         </div>
-        <div className='grid gap-2 mt-4'>
-          {
-            today.trxns?.map ((trxn, index)=> (
-              <TransactionCard key={index} item={trxn}/>
-            ))
-          }
-        </div>
+        <TransactionList/>
       </div>
   )
 }
