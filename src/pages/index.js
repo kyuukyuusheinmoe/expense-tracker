@@ -8,43 +8,14 @@ import { fetcher } from '../services/axiosClient'
 import BarChart from '../components/Charts/BarCharts'
 import useSWR from 'swr'
 
-const user_expense = {
-  current: {
-    balance: 100000,
-    income: 50000,
-    expense: 500000
-  },
-  init : {
-    balance: 1000000
-  },
-  today: {
-    totalExpense: 20000,
-    trxns: [{
-      amount: 100000,
-      type: 'Debit',
-      category: 'Bills',
-      payment: "Cash"
-    },{
-      amount: 100000,
-      type: 'Credit',
-      category: 'Bills',
-      payment: "Bank"
-    },{
-      amount: 100000,
-      type: 'Credit',
-      category: 'Bills',
-      payment: "Bank"
-    }],
-  }
-  
-}
-
 export default function Home() {
   const currentDate = new Date()
   const currentMonth = months[currentDate.getMonth()]
-  const {current, init, today} = user_expense;
 
   const {data} = useSWR('/analytic/top-categories?limit=5', fetcher)
+  const {data: totalResult} = useSWR('/analytic/total-balance', fetcher)
+  const {data: totalExpResult} = useSWR('/analytic/total-expense', fetcher)
+
 
   const categories = data?.data;
 
@@ -75,8 +46,8 @@ export default function Home() {
         <div className='flex flex-row-reverse'>
           <Button label={currentMonth} icon="pi pi-calendar pr-1" className='!bg-main !text-white !p-2 !rounded-full'/>
         </div>
-        <p className='font-bold text-md'> Balance: <span className='font-normal'>{init?.balance && `${Intl.NumberFormat().format(init.balance)} ${currency}`} </span></p>
-        <p className='font-bold text-2xl text-error'> Total Expense: </p>
+        <p className='font-bold text-md'> Balance: <span className='font-normal'>{totalResult?.data?.total && `${Intl.NumberFormat().format(totalResult?.data?.total)} ${currency}`} </span></p>
+        <p className='font-medium text-xl text-error'> Total Expense: {totalExpResult?.data?.total && `${Intl.NumberFormat().format(totalExpResult?.data?.total)} ${currency}`}</p>
         <BarChart chartData={formatChartData}/>
         
         <TransactionList/>
