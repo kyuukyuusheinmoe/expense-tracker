@@ -7,6 +7,7 @@ import TransactionList from '../containers/Home/TransactionList';
 import { fetcher } from '../services/axiosClient'
 import BarChart from '../components/Charts/BarCharts'
 import useSWR from 'swr'
+import moment from 'moment'
 
 export default function Home() {
   const currentDate = new Date()
@@ -14,8 +15,7 @@ export default function Home() {
 
   const {data} = useSWR('/analytic/top-categories?limit=5', fetcher)
   const {data: totalResult} = useSWR('/analytic/total-balance', fetcher)
-  const {data: totalExpResult} = useSWR('/analytic/total-expense', fetcher)
-
+  const {data: totalExpResult} = useSWR(`/analytic/total-expense?from=${moment([currentDate.getFullYear(), currentDate.getMonth()]).format('YYYY-MM-DD')}`, fetcher)
 
   const categories = data?.data;
 
