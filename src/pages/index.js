@@ -1,12 +1,12 @@
 import {Button} from 'primereact/button'
 import { months, currency } from '../constants/common'
-import { TransactionCard } from '../components/Cards'
 import { MainLayout } from '../containers/Layout'
 import BottomNavBar from '../containers/Layout/BottomNavBar'
 import Router from 'next/router'
 import TransactionList from '../containers/Home/TransactionList';
 import { fetcher } from '../services/axiosClient'
 import BarChart from '../components/Charts/BarCharts'
+import useSWR from 'swr'
 
 const user_expense = {
   current: {
@@ -39,11 +39,14 @@ const user_expense = {
   
 }
 
-export default function Home({categories}) {
-  console.log ('xxx categories ', categories)
+export default function Home() {
   const currentDate = new Date()
   const currentMonth = months[currentDate.getMonth()]
   const {current, init, today} = user_expense;
+
+  const {data} = useSWR('/analytic/top-categories?limit=5', fetcher)
+
+  const categories = data?.data;
 
   const formatChartData = {
     labels: categories?.map (cat => cat.categoryName),
@@ -89,8 +92,3 @@ Home.getLayout = function getLayout(page) {
       </MainLayout>
   )
 }
-
-export const getServerSideProps = (async () => {
-  const res = await fetcher('/analytic/top-categories?limit=5')
-  return { props: { categories: res.data } }
-})
