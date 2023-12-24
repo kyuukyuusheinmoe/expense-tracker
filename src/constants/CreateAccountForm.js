@@ -41,13 +41,4 @@ export const CreateAccountForm = [
             hasValue: "cash"
         },
     },
-    {
-        label: "Initial Amount",
-        name: 'balance',
-        formProps : {
-            type: "Input",
-            valueType: "number"
-        }
-    },
-   
 ]
