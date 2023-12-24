@@ -75,16 +75,7 @@ export default function Home({categories}) {
         <p className='font-bold text-md'> Balance: <span className='font-normal'>{init?.balance && `${Intl.NumberFormat().format(init.balance)} ${currency}`} </span></p>
         <p className='font-bold text-2xl text-error'> Total Expense: </p>
         <BarChart chartData={formatChartData}/>
-        <div className="flex gap-4 justify-center text-xl 2xs:text-lg mt-2">
-          <div className='bg-eblue-50 flex flex-col gap-2 p-4 text-center items-center rounded-xl'>
-            <span> <i className='pi pi-plus text-success mr-2'/> Income</span>
-            <p className='text-enavy-700 font-bold'>{current?.income && `${Intl.NumberFormat().format(current.income)} ${currency}`} </p>
-          </div>
-          <div className='bg-egray-100 flex flex-col gap-2 p-4 text-center items-center rounded-lg'>
-            <span> <i className='pi pi-minus text-error mr-2'/> Expense</span>
-            <p className='text-enavy-700 font-bold'>{current?.expense && `${Intl.NumberFormat().format(current.expense)} ${currency}`} </p>
-          </div>
-        </div>
+        
         <TransactionList/>
       </div>
   )
