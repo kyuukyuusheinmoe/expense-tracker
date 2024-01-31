@@ -32,7 +32,7 @@ const TransactionList = () => {
 					pageSize={PAGE_SIZE}
 					isReachingEnd={(swr) =>
 						swr.data?.[0]?.data.length === 0 ||
-						(swr.data?.[swr.data?.length - 1].data || []).length < PAGE_SIZE
+						(swr.data?.[swr.data?.length - 1]?.data || []).length < PAGE_SIZE
 					}
 				>
 					{(item) =>  (

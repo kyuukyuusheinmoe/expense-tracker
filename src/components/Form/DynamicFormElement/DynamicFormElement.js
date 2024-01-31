@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { useController, useFormContext, useWatch } from 'react-hook-form'
+import { useController, useFormContext } from 'react-hook-form'
 import { componentMapper } from '../../../utils/form/componentMapper';
 import useAPIData from '../../../hooks/useAPIData';
 
@@ -17,7 +17,6 @@ function DynamicFormElement({control,valueType, componentType, label, dataSource
 
     const watchValues = watch()
 
-
     useEffect(()=> {
         if (condition) {
           const {name: dependencyFieldName, hasValue, show} = condition;
@@ -34,9 +33,9 @@ function DynamicFormElement({control,valueType, componentType, label, dataSource
         }
       }, [condition, watchValues, setComponentShow, control, name])
 
-  const Component = componentMapper[componentType]?.component
+    const Component = componentMapper[componentType]?.component
 
-  const itemList =  useAPIData(dataSource, watchValues[condition?.name])
+    const itemList =  useAPIData(dataSource, watchValues[condition?.name])
 
   return (
     <>

@@ -40,11 +40,10 @@ const InfiniteScroll =(props) => {
 		}
 	}, [intersecting, isValidating, setSize, ending]);
 
-    console.log ('xxx data ', data)
 	return (
 		<>
 			<DataWrapper>
-				{typeof children === "function" ? data?.map((item) => item.data.map (d => children(d))) : children}
+				{typeof children === "function" ? data?.map((item) => item?.data?.map (d => children(d))) : children}
 				{isAutoInfinite && !isLoading && (
 					<div className="relative flex flex-col items-center col-span-full">
 						<div ref={ref} className="absolute" />

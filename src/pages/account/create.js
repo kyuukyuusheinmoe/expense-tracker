@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from 'primereact/button'
 import { FormProvider, useForm} from 'react-hook-form'
-import axios from 'axios'
 import {Dialog} from 'primereact/dialog'
 import { useRouter } from 'next/router'
 import LayoutWithHeader from '../../containers/Layout/LayoutWithHeader'
